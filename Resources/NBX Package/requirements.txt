@@ -1,0 +1,11 @@
+pandas
+numpy
+scikit-learn
+# LLM client uses standard-library urllib only
+
+# --- vector retrieval layer (Step 3+ of the learning module) ---
+# chromadb            : local/in-memory vector database, no server to run
+# sentence-transformers: free local embedding model (all-MiniLM-L6-v2),
+#                        no API key needed. Pulls in torch (~large download).
+chromadb>=1.0
+sentence-transformers>=3.0

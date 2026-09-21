@@ -1,0 +1,12 @@
+anthropic>=0.30.0
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.4
+streamlit>=1.35
+
+# --- vector retrieval layer (pipeline/vector_store.py) ---
+# chromadb             : local/in-memory vector database, no server to run
+# sentence-transformers: free local embedding model (all-MiniLM-L6-v2),
+#                        no API key needed. Pulls in torch (large download).
+chromadb>=1.0
+sentence-transformers>=3.0
