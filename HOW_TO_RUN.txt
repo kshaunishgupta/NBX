@@ -1,0 +1,50 @@
+NBX - HOW TO RUN
+================
+
+!! THE CODE HAS MOVED !!
+------------------------
+nbx_all_in_one_rich.py no longer lives in this folder. It was consolidated into
+the main project directory, alongside the Streamlit app:
+
+    /Users/apple/Desktop/Co-op/Y1 Spring - OFTI/Co-op/NBX/NBX/
+
+This folder now keeps only reference material (architecture diagram, the
+original PoC CSVs, and the source PDFs in ../External Sources/).
+
+RUN IT FROM THE NEW LOCATION
+----------------------------
+1) cd "/Users/apple/Desktop/Co-op/Y1 Spring - OFTI/Co-op/NBX/NBX"
+2) pip3 install -r requirements.txt
+3) python3 nbx_all_in_one_rich.py
+4) Check ./outputs/all_in_one/ for the generated CSVs.
+
+   NOTE: outputs now go to ./outputs/all_in_one/ (not ./outputs/), so this
+   PoC's CSVs never mix with the Streamlit pipeline's CSVs, which share the
+   same parent folder.
+
+OPTIONAL - vector retrieval layer
+---------------------------------
+Replaces the "dump the whole transcript" step with semantic retrieval of the
+top-3 most decision-relevant interactions per customer:
+
+     NBX_VECTOR_RETRIEVAL=1 python3 nbx_all_in_one_rich.py
+     NBX_VECTOR_LOG=1 NBX_VECTOR_RETRIEVAL=1 python3 nbx_all_in_one_rich.py   # verbose
+
+Requires chromadb + sentence-transformers (both in requirements.txt).
+To see how it works and how well it performs:
+
+     python3 notebooks/vector_db_learning.py
+
+OPTIONAL - real LLM (OpenAI-compatible). If unset, runs offline.
+     export NBX_LLM_PROVIDER=openai
+     export NBX_LLM_BASE_URL=https://api.openai.com/v1
+     export NBX_LLM_API_KEY=sk-...
+     export NBX_LLM_MODEL=gpt-4o-mini
+(Windows PowerShell: use $env:NBX_LLM_PROVIDER="openai" etc.)
+
+OUTPUT FILES (in ./outputs/all_in_one/)
+  telecom_nbx_rich.csv      - 20,000-row x 54-field synthetic dataset
+  nba_recommendations.csv   - recommender output (WHAT)
+  nbx_experience.csv        - NBX output (WHY + HOW + guard + source)
+  value_simulation.csv      - per-customer baseline vs NBX
+  value_summary.csv         - headline metrics
